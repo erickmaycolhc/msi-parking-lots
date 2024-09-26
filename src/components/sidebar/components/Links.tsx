@@ -1,12 +1,16 @@
 /* eslint-disable */
-import React from 'react';
-import { useCallback } from 'react';
-import { usePathname } from 'next/navigation';
-import NavLink from '@/components/link/NavLink';
-import DashIcon from '@/components/icons/DashIcon';
+import React from "react";
+import { useCallback } from "react";
+import { usePathname } from "next/navigation";
+import NavLink from "@/components/link/NavLink";
+import DashIcon from "@/components/icons/DashIcon";
+import { RiMoonFill, RiSunFill } from "react-icons/ri";
 // chakra imports
 
 export const SidebarLinks = (props: { routes: RoutesType[] }): JSX.Element => {
+  const [darkmode, setDarkmode] = React.useState(
+    document.body.classList.contains("dark")
+  );
   // Chakra color mode
   const pathname = usePathname();
 
@@ -17,18 +21,18 @@ export const SidebarLinks = (props: { routes: RoutesType[] }): JSX.Element => {
     (routeName: string) => {
       return pathname?.includes(routeName);
     },
-    [pathname],
+    [pathname]
   );
 
   const createLinks = (routes: RoutesType[]) => {
     return routes.map((route, index) => {
       if (
-        route.layout === '/admin' ||
-        route.layout === '/auth' ||
-        route.layout === '/rtl'
+        route.layout === "/admin" ||
+        route.layout === "/auth" ||
+        route.layout === "/rtl"
       ) {
         return (
-          <NavLink key={index} href={route.layout + '/' + route.path}>
+          <NavLink key={index} href={route.layout + "/" + route.path}>
             <div className="relative mb-3 flex hover:cursor-pointer">
               <li
                 className="my-[3px] flex cursor-pointer items-center px-8"
@@ -37,17 +41,17 @@ export const SidebarLinks = (props: { routes: RoutesType[] }): JSX.Element => {
                 <span
                   className={`${
                     activeRoute(route.path) === true
-                      ? 'font-bold text-brand-500 dark:text-white'
-                      : 'font-medium text-gray-600'
+                      ? "font-bold text-brand-500 dark:text-white"
+                      : "font-medium text-gray-600"
                   }`}
                 >
-                  {route.icon ? route.icon : <DashIcon />}{' '}
+                  {route.icon ? route.icon : <DashIcon />}{" "}
                 </span>
                 <p
                   className={`leading-1 ml-4 flex ${
                     activeRoute(route.path) === true
-                      ? 'font-bold text-navy-700 dark:text-white'
-                      : 'font-medium text-gray-600'
+                      ? "font-bold text-navy-700 dark:text-white"
+                      : "font-medium text-gray-600"
                   }`}
                 >
                   {route.name}
@@ -62,6 +66,7 @@ export const SidebarLinks = (props: { routes: RoutesType[] }): JSX.Element => {
       }
     });
   };
+
   // BRAND
   return <>{createLinks(routes)}</>;
 };

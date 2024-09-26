@@ -3,15 +3,18 @@ const columns = [
   { name: "VIA", uid: "via", sortable: true },
   { name: "CUADRA", uid: "cuadra", sortable: true },
   { name: "ESTACIONAMIENTOS", uid: "estacionamiento", sortable: true },
-  { name: "ACTIONS", uid: "actions" },
+  { name: "ACCIONES", uid: "actions" },
 ];
 
 const parkings = [
   {
     id: 1,
     via: "Av. Dos de Mayo",
+    zoom: 15,
+    center: { lat: -12.091075, lng: -77.036369 },
     cuadra: "4, 5, 6, 7, 10, 12, 14, 15 y 16",
     estacionamiento: "82",
+
     blocks: [
       {
         name: "cuadra 4",

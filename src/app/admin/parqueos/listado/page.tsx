@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { ChangeEvent, Key, useCallback, useMemo, useState } from "react";
 import {
   Table,
@@ -19,8 +19,7 @@ import {
   Selection,
   ChipProps,
   SortDescriptor,
-  Card,
-  Tooltip
+  Tooltip,
 } from "@nextui-org/react";
 import { PlusIcon } from "@/utils/PlusIcon";
 import { VerticalDotsIcon } from "@/utils/VerticalDotsIcon";
@@ -29,8 +28,9 @@ import { ChevronDownIcon } from "@/utils/ChevronDownIcon";
 import { EyeIcon } from "@/utils/EyeIcon";
 import { columns, parkings } from "@/data/parking";
 import { capitalize } from "@/utils/functions";
-import { redirect } from 'next/navigation';
+import { redirect } from "next/navigation";
 import Link from "next/link";
+import Card from "@/components/card";
 
 const statusColorMap: Record<string, ChipProps["color"]> = {
   active: "success",
@@ -40,14 +40,16 @@ const statusColorMap: Record<string, ChipProps["color"]> = {
 
 const INITIAL_VISIBLE_COLUMNS = ["via", "cuadra", "estacionamiento", "actions"];
 
-type ParkingType = typeof parkings[0];
+type ParkingType = (typeof parkings)[0];
 
 export default function App() {
   const [filterValue, setFilterValue] = useState("");
   const [selectedKeys, setSelectedKeys] = useState<Selection>(new Set([]));
-  const [visibleColumns, setVisibleColumns] = useState<Selection>(new Set(INITIAL_VISIBLE_COLUMNS));
+  const [visibleColumns, setVisibleColumns] = useState<Selection>(
+    new Set(INITIAL_VISIBLE_COLUMNS)
+  );
   const [statusFilter, setStatusFilter] = useState<Selection>("all");
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(25);
   const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
     column: "age",
     direction: "ascending",
@@ -61,7 +63,9 @@ export default function App() {
   const headerColumns = useMemo(() => {
     if (visibleColumns === "all") return columns;
 
-    return columns.filter((column) => Array.from(visibleColumns).includes(column.uid));
+    return columns.filter((column) =>
+      Array.from(visibleColumns).includes(column.uid)
+    );
   }, [visibleColumns]);
 
   const filteredItems = useMemo(() => {
@@ -69,7 +73,7 @@ export default function App() {
 
     if (hasSearchFilter) {
       filteredParkings = filteredParkings.filter((parking) =>
-        parking.via.toLowerCase().includes(filterValue.toLowerCase()),
+        parking.via.toLowerCase().includes(filterValue.toLowerCase())
       );
     }
     // if (statusFilter !== "all" && Array.from(statusFilter).length !== statusOptions.length) {
@@ -100,7 +104,7 @@ export default function App() {
 
   const handlerViewMapParking = () => {
     //redirect('/admin/parqueos/mapa/');
-  }
+  };
 
   const renderCell = useCallback((user: ParkingType, columnKey: Key) => {
     const cellValue = user[columnKey as keyof ParkingType];
@@ -119,7 +123,9 @@ export default function App() {
           //   {user.email}
           // </User>
           <div className="flex flex-col">
-            <p className="text-bold text-tiny capitalize text-default-500">{user.via}</p>
+            <p className="text-bold text-tiny capitalize text-default-500">
+              {user.via}
+            </p>
           </div>
         );
       case "cuadra":
@@ -129,7 +135,9 @@ export default function App() {
           //   <p className="text-bold text-tiny capitalize text-default-500">{user.team}</p>
           // </div>
           <div className="flex flex-col">
-            <p className="text-bold text-tiny capitalize text-default-500">{user.cuadra}</p>
+            <p className="text-bold text-tiny capitalize text-default-500">
+              {user.cuadra}
+            </p>
           </div>
         );
       case "estacionamiento":
@@ -160,16 +168,15 @@ export default function App() {
           //   </Dropdown>
           // </div>
           <div className="relative flex items-center gap-2">
-            <Tooltip content="Details">
-              {/* <span className="text-lg text-default-400 cursor-pointer active:opacity-50" >
+            {/* <span className="text-lg text-default-400 cursor-pointer active:opacity-50" >
                 <EyeIcon />
               </span> */}
-              <Link href={`/admin/parqueos/mapa/${user.id}`}>
-                <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                  <EyeIcon />
-                </span>
-              </Link>
-            </Tooltip>
+            <Link
+              href={`/admin/parqueos/mapa/${user.id}`}
+              className="flex justify-center gap-1 items-center linear rounded-[20px] bg-[#422afb] px-4 py-2 text-md text-white transition duration-200 hover:bg-brand-800 active:bg-brand-700 dark:bg-brand-400 dark:hover:bg-brand-300 dark:active:opacity-90"
+            >
+              <EyeIcon />
+            </Link>
             {/* <Tooltip content="Edit user">
               <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
                 <EditIcon />
@@ -187,11 +194,13 @@ export default function App() {
     }
   }, []);
 
-
-  const onRowsPerPageChange = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
-    setRowsPerPage(Number(e.target.value));
-    setPage(1);
-  }, []);
+  const onRowsPerPageChange = useCallback(
+    (e: ChangeEvent<HTMLSelectElement>) => {
+      setRowsPerPage(Number(e.target.value));
+      setPage(1);
+    },
+    []
+  );
 
   const onSearchChange = useCallback((value?: string) => {
     if (value) {
@@ -212,7 +221,7 @@ export default function App() {
               base: "w-full sm:max-w-[44%]",
               inputWrapper: "border-1",
             }}
-            placeholder="Search by name..."
+            placeholder="Buscar por nombre..."
             size="sm"
             startContent={<SearchIcon className="text-default-300" />}
             value={filterValue}
@@ -253,7 +262,7 @@ export default function App() {
                   size="sm"
                   variant="flat"
                 >
-                  Columns
+                  Columnas
                 </Button>
               </DropdownTrigger>
               <DropdownMenu
@@ -281,16 +290,18 @@ export default function App() {
           </div>
         </div>
         <div className="flex justify-between items-center">
-          <span className="text-default-400 text-small">Total {parkings.length} users</span>
+          <span className="text-default-400 text-small">
+            Total de resultados: {parkings.length}
+          </span>
           <label className="flex items-center text-default-400 text-small">
-            Rows per page:
+            Filas por páginas:
             <select
               className="bg-transparent outline-none text-default-400 text-small"
               onChange={onRowsPerPageChange}
             >
-              <option value="5">5</option>
-              <option value="10">10</option>
-              <option value="15">15</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
             </select>
           </label>
         </div>
@@ -346,7 +357,7 @@ export default function App() {
         "group-data-[last=true]:last:before:rounded-none",
       ],
     }),
-    [],
+    []
   );
 
   return (
@@ -357,48 +368,59 @@ export default function App() {
             Check Table
           </div>
         </header> */}
-      <div className="mt-8">
-        <Table
-          isCompact
-          removeWrapper
-          aria-label="Example table with custom cells, pagination and sorting"
-          bottomContent={bottomContent}
-          bottomContentPlacement="outside"
-          checkboxesProps={{
-            classNames: {
-              wrapper: "after:bg-foreground after:text-background text-background",
-            },
-          }}
-          classNames={classNames}
-          selectedKeys={selectedKeys}
-          selectionMode="multiple"
-          sortDescriptor={sortDescriptor}
-          topContent={topContent}
-          topContentPlacement="outside"
-          onSelectionChange={setSelectedKeys}
-          onSortChange={setSortDescriptor}
-        >
-          <TableHeader columns={headerColumns} className="group outline-none data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 cursor-default">
-            {(column) => (
-              <TableColumn
-                key={column.uid}
-                align={column.uid === "actions" ? "center" : "start"}
-                allowsSorting={column.sortable}
-                className={"group px-3 h-10 align-middle whitespace-nowrap text-tiny font-semibold first:rounded-l-lg rtl:first:rounded-r-lg rtl:first:rounded-l-[unset] last:rounded-r-lg rtl:last:rounded-l-lg rtl:last:rounded-r-[unset] data-[sortable=true]:cursor-pointer data-[hover=true]:text-foreground-400 outline-none data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-start bg-transparent text-default-500 border-b border-divider"}
-              >
-                {column.name}
-              </TableColumn>
-            )}
-          </TableHeader>
-          <TableBody emptyContent={"No users found"} items={sortedItems}>
-            {(item) => (
-              <TableRow key={item.id}>
-                {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </div>
+      <Card extra={"w-full h-full px-6"}>
+        <div className="mt-5 grid h-full grid-cols-1 gap-5 md:grid-cols-1">
+          <Table
+            className=""
+            isCompact
+            removeWrapper
+            aria-label="Example table with custom cells, pagination and sorting"
+            bottomContent={bottomContent}
+            bottomContentPlacement="outside"
+            checkboxesProps={{
+              classNames: {
+                wrapper:
+                  "after:bg-foreground after:text-background text-background",
+              },
+            }}
+            classNames={classNames}
+            selectedKeys={selectedKeys}
+            // selectionMode="multiple"
+            sortDescriptor={sortDescriptor}
+            topContent={topContent}
+            topContentPlacement="outside"
+            onSelectionChange={setSelectedKeys}
+            onSortChange={setSortDescriptor}
+          >
+            <TableHeader
+              columns={headerColumns}
+              className="group outline-none data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 cursor-default"
+            >
+              {(column) => (
+                <TableColumn
+                  key={column.uid}
+                  align={column.uid === "actions" ? "center" : "start"}
+                  allowsSorting={column.sortable}
+                  className={
+                    "group px-3 h-10 align-middle whitespace-nowrap text-tiny font-semibold first:rounded-l-lg rtl:first:rounded-r-lg rtl:first:rounded-l-[unset] last:rounded-r-lg rtl:last:rounded-l-lg rtl:last:rounded-r-[unset] data-[sortable=true]:cursor-pointer data-[hover=true]:text-foreground-400 outline-none data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-start bg-transparent text-default-500 border-b border-divider"
+                  }
+                >
+                  {column.name}
+                </TableColumn>
+              )}
+            </TableHeader>
+            <TableBody emptyContent={"No users found"} items={sortedItems}>
+              {(item) => (
+                <TableRow key={item.id}>
+                  {(columnKey) => (
+                    <TableCell>{renderCell(item, columnKey)}</TableCell>
+                  )}
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
+      </Card>
       {/* </Card > */}
     </>
   );

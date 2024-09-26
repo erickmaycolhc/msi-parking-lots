@@ -1,19 +1,18 @@
-import React from 'react';
-import Dropdown from '@/components/dropdown';
-import { FiAlignJustify, FiSearch } from 'react-icons/fi';
-import NavLink from '@/components/link/NavLink';
-import navbarimage from '/public/img/layout/Navbar.png';
-import { BsArrowBarUp } from 'react-icons/bs';
-import { RiMoonFill, RiSunFill } from 'react-icons/ri';
+import React from "react";
+import Dropdown from "@/components/dropdown";
+import { FiAlignJustify, FiSearch } from "react-icons/fi";
+import NavLink from "@/components/link/NavLink";
+import navbarimage from "/public/img/layout/Navbar.png";
+import { BsArrowBarUp } from "react-icons/bs";
+import { RiMoonFill, RiSunFill } from "react-icons/ri";
 // import { RiMoonFill, RiSunFill } from 'react-icons/ri';
 // import Configurator from './Configurator';
 import {
   IoMdNotificationsOutline,
   IoMdInformationCircleOutline,
-} from 'react-icons/io';
-import avatar from '/public/img/avatars/avatar1.png';
-import Image from 'next/image';
-
+} from "react-icons/io";
+import avatar from "/public/img/avatars/avatar1.png";
+import Image from "next/image";
 
 const Navbar = (props: {
   onOpenSidenav: () => void;
@@ -23,7 +22,7 @@ const Navbar = (props: {
 }) => {
   const { onOpenSidenav, brandText, mini, hovered } = props;
   const [darkmode, setDarkmode] = React.useState(
-    document.body.classList.contains('dark'),
+    document.body.classList.contains("dark")
   );
   return (
     <nav className="sticky top-4 z-40 flex flex-row flex-wrap items-center justify-between rounded-xl bg-white/10 p-2 backdrop-blur-xl dark:bg-[#0b14374d]">
@@ -35,8 +34,8 @@ const Navbar = (props: {
           >
             Pages
             <span className="mx-1 text-sm text-navy-700 hover:text-navy-700 dark:text-white">
-              {' '}
-              /{' '}
+              {" "}
+              /{" "}
             </span>
           </a>
           <NavLink
@@ -56,7 +55,8 @@ const Navbar = (props: {
         </p>
       </div>
 
-      <div className="relative mt-[3px] flex h-[61px] w-[355px] flex-grow items-center justify-around gap-2 rounded-full bg-white px-2 py-2 shadow-xl shadow-shadow-500 dark:!bg-navy-800 dark:shadow-none md:w-[365px] md:flex-grow-0 md:gap-1 xl:w-[365px] xl:gap-2">
+      {/* <div className="relative mt-[3px] flex h-[61px] w-[355px] flex-grow items-center justify-around gap-2 rounded-full bg-white px-2 py-2 shadow-xl shadow-shadow-500 dark:!bg-navy-800 dark:shadow-none md:w-[365px] md:flex-grow-0 md:gap-1 xl:w-[365px] xl:gap-2">
+      
         <div className="flex h-full items-center rounded-full bg-lightPrimary text-navy-700 dark:bg-navy-900 dark:text-white xl:w-[225px]">
           <p className="pl-3 pr-2 text-xl">
             <FiSearch className="h-4 w-4 text-gray-400 dark:text-white" />
@@ -73,7 +73,6 @@ const Navbar = (props: {
         >
           <FiAlignJustify className="h-5 w-5" />
         </span>
-        {/* start Notification */}
         <Dropdown
           button={
             <p className="cursor-pointer">
@@ -81,7 +80,7 @@ const Navbar = (props: {
             </p>
           }
           animation="origin-[65%_0%] md:origin-top-right transition-all duration-300 ease-in-out"
-          classNames={'py-2 top-4 -left-[230px] md:-left-[440px] w-max'}
+          classNames={"py-2 top-4 -left-[230px] md:-left-[440px] w-max"}
         >
           <div className="flex w-[360px] flex-col gap-3 rounded-[20px] bg-white p-4 shadow-xl shadow-shadow-500 dark:!bg-navy-700 dark:text-white dark:shadow-none sm:w-[460px]">
             <div className="flex items-center justify-between">
@@ -122,22 +121,21 @@ const Navbar = (props: {
             </button>
           </div>
         </Dropdown>
-        {/* start Horizon PRO */}
-        {/* <Dropdown
+        <Dropdown
           button={
             <p className="cursor-pointer">
               <IoMdInformationCircleOutline className="h-4 w-4 text-gray-600 dark:text-white" />
             </p>
           }
-          classNames={'py-2 top-6 -left-[250px] md:-left-[330px] w-max'}
+          classNames={"py-2 top-6 -left-[250px] md:-left-[330px] w-max"}
           animation="origin-[75%_0%] md:origin-top-right transition-all duration-300 ease-in-out"
         >
           <div className="flex w-[350px] flex-col gap-2 rounded-[20px] bg-white p-4 shadow-xl shadow-shadow-500 dark:!bg-navy-700 dark:text-white dark:shadow-none">
             <div
               style={{
                 backgroundImage: `url(${navbarimage.src})`,
-                backgroundRepeat: 'no-repeat',
-                backgroundSize: 'cover',
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
               }}
               className="mb-2 aspect-video w-full rounded-lg"
             />
@@ -163,15 +161,15 @@ const Navbar = (props: {
               Try Horizon Free
             </a>
           </div>
-        </Dropdown> */}
+        </Dropdown>
         <div
           className="cursor-pointer text-gray-600"
           onClick={() => {
             if (darkmode) {
-              document.body.classList.remove('dark');
+              document.body.classList.remove("dark");
               setDarkmode(false);
             } else {
-              document.body.classList.add('dark');
+              document.body.classList.add("dark");
               setDarkmode(true);
             }
           }}
@@ -182,7 +180,7 @@ const Navbar = (props: {
             <RiMoonFill className="h-4 w-4 text-gray-600 dark:text-white" />
           )}
         </div>
-        {/* Profile & Dropdown */}
+
         <Dropdown
           button={
             <Image
@@ -193,14 +191,14 @@ const Navbar = (props: {
               alt="Elon Musk"
             />
           }
-          classNames={'py-2 top-8 -left-[180px] w-max'}
+          classNames={"py-2 top-8 -left-[180px] w-max"}
         >
           <div className="flex h-48 w-56 flex-col justify-start rounded-[20px] bg-white bg-cover bg-no-repeat shadow-xl shadow-shadow-500 dark:!bg-navy-700 dark:text-white dark:shadow-none">
             <div className="ml-4 mt-3">
               <div className="flex items-center gap-2">
                 <p className="text-sm font-bold text-navy-700 dark:text-white">
                   👋 Hey, Adela
-                </p>{' '}
+                </p>{" "}
               </div>
             </div>
             <div className="mt-3 h-px w-full bg-gray-200 dark:bg-white/20 " />
@@ -227,7 +225,7 @@ const Navbar = (props: {
             </div>
           </div>
         </Dropdown>
-      </div>
+      </div> */}
     </nav>
   );
 };

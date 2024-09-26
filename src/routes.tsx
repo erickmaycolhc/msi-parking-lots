@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 // Admin Imports
 
@@ -9,24 +9,18 @@ import {
   MdBarChart,
   MdPerson,
   MdLock,
-} from 'react-icons/md';
+} from "react-icons/md";
 
 const routes = [
   {
-    name: 'Main Dashboard',
-    layout: '/admin',
-    path: 'default',
-    icon: <MdHome className="h-6 w-6" />,
-  },
-  {
-    name: 'Parqueo',
-    layout: '/admin',
-    path: 'parqueos/listado',
+    name: "Parqueo",
+    layout: "/admin",
+    path: "parqueos/listado",
     icon: <MdOutlineShoppingCart className="h-6 w-6" />,
 
     secondary: true,
   },
-  
+
   // {
   //   name: 'NFT Marketplace',
   //   layout: '/admin',
